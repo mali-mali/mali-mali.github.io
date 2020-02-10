@@ -4,9 +4,28 @@
   
   
   <entry>
+    <title>hexo博客搭建</title>
+    <link href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <url>/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<p>本文用于记录我在创建hexo博客时的方法和步骤。<br>这是我第一次创建自己的博客，使用hexo主要是因为他的创建方法很简单，还可以通过git部署到公网。<br>这篇文章大部分参考了hexo的 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官方文档</a> 所有内容在官方文档中都有更加详细的说明。</p><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>Hexo 是一个快速、简洁且高效的博客框架。hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">官网</a></p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>在你要存放博客的文件夹下使用命令窗口输入:</p><pre><code>$ npm install -g hexo-cli</code></pre><p>hexo是机遇 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js</a> 的，所以在安装hexo之前我们需要先安装好Node.js<br>因为我们后面要使用git将我们的博客部署到公网所以也需要先把 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a> 安装好</p><blockquote><p>使用Node.js官方安装程序时，请确保勾选 Add to PATH 选项（默认已勾选）</p></blockquote><h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><pre><code>$ hexo init$ npm install</code></pre><p>这个过程需要一些时间<br>创建好后会得到这样的文件结构</p><pre><code>.|——_config.yml  # 网站的配置信息|——package.json  # 应用程序信息|——scaffolds  # 模板文件夹|——source  # 资源文件夹|  |__ _posts  # 文章文件夹|__themes  # 主题文件夹</code></pre><p>我们可以在 <a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">_config.yml</a> 中修改大部分的配置<br>到这里我们的hexo博客就建好了，接下来就是将我们的博客部署到公网上了。这部分的内容放到之后再更新上来。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>博客搭建</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
-    <link href="/2020/01/03/hello-world/"/>
-    <url>/2020/01/03/hello-world/</url>
+    <link href="/2020/01/22/hello-world/"/>
+    <url>/2020/01/22/hello-world/</url>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     
