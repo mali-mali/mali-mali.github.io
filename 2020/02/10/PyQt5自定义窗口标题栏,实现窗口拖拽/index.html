@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags ~ Hexo</title>
+  <title>PyQt5 自定义窗口标题栏, 实现窗口拖拽 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Monday, February 10th 2020, 10:07 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    511 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,22 +163,144 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center tagcloud">
-  <a href="/tags/PyQt5-%E5%BA%94%E7%94%A8/" style="font-size: 15px; color: #bbe">PyQt5 应用</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 15px; color: #bbe">博客搭建</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98%E6%A0%8F/" style="font-size: 15px; color: #bbe">自定义标题栏</a>
-</div>
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>最近在使用pyqt5做窗口应用程序，因为原始的标题栏不能满足需求我们常常会使用到自定义的标题栏。<br>本篇放上一个最简单的例子提供参考</p>
+<h2 id="隐藏原始标题栏"><a href="#隐藏原始标题栏" class="headerlink" title="隐藏原始标题栏"></a>隐藏原始标题栏</h2><pre><code>class test(QMainWindow):
+
+    def __init__(self):
+        super(test, self).__init__(None, Qt.FramelessWindowHint)  # 无边框设置
+        self.setFixedSize(880, 640)
+        self.setStyleSheet(&quot;QMainWindow{background:rgba(255,255,255,255)}&quot;)
+        self.init()</code></pre><blockquote>
+<p>使用 Qt.FramelessWindowHint将我们的窗口设置为无边框窗口</p>
+</blockquote>
+<h2 id="创建一个标题栏"><a href="#创建一个标题栏" class="headerlink" title="创建一个标题栏"></a>创建一个标题栏</h2><pre><code>    def init(self):
+        # 创建一个标题栏
+        self.titlebar = QLabel(self)
+        self.titlebar.setFixedSize(880, 40)
+        self.titlebar.move(0, 0)
+        self.titlebar.setStyleSheet(&quot;QLabel{background:rgba(245,245,245,255)}&quot;)
+
+        # 图标
+        self.icon = QLabel(self)
+        self.icon.setFixedSize(20, 20)
+        self.icon.move(10, 10)
+        self.icon.setStyleSheet(&quot;QLabel{background-image: url(image/main_win/icon.png)}&quot;)
+
+        # 标题
+        self.title = QLabel(self)
+        self.title.setText(&#39;我的自定义标题栏&#39;)
+        self.title.move(37, 6)
+        self.title.setStyleSheet(&quot;QLabel{font-size:14px;&quot;
+                                 &quot;font-family:Microsoft YaHei;&quot;
+                                 &quot;font-weight:400;&quot;
+                                 &quot;color:rgba(51,51,51,1);&quot;
+                                 &quot;line-height:1px;&quot;)
+
+        # 关闭按钮
+        self.close_btn = QPushButton(self)
+        self.close_btn.setFixedSize(16, 16)
+        self.close_btn.move(842, 18)
+        self.close_btn.setStyleSheet(&quot;QPushButton{background-image: url(image/main_win/close.png);&quot;
+                                     &quot;border:none}&quot;)
+        self.close_btn.pressed.connect(self.close)
+
+        # # 最大化按钮
+        # self.max_btn = QPushButton(self)
+        # self.max_btn.setFixedSize(16, 16)
+        # self.max_btn.move(792, 18)
+        # self.max_btn.setStyleSheet(&quot;QPushButton{background-image: url(image/main_win/min.png);&quot;
+        #                            &quot;border:none}&quot;)
+        # self.max_btn.pressed.connect(self.ShowRestoreWindow)
+
+        # 最小化按钮
+        self.min_btn = QPushButton(self)
+        self.min_btn.setFixedSize(16, 16)
+        self.min_btn.move(742, 18)
+        self.min_btn.setStyleSheet(&quot;QPushButton{background-image: url(image/main_win/min.png);&quot;
+                                   &quot;border:none}&quot;)
+        self.min_btn.pressed.connect(self.showMinimized)
+
+    # def ShowRestoreWindow(self):
+    #     &quot;&quot;&quot;窗口最大化以及恢复&quot;&quot;&quot;
+    #     if self.isMaximized():
+    #         self.showNormal()
+    #     else:
+    #         self.showMaximized()
+    #     self.titleSize()
+
+    def mousePressEvent(self, QMouseEvent):
+        &quot;&quot;&quot;鼠标点击事件&quot;&quot;&quot;
+        self.isPressed = True
+        self.startMovePos = QMouseEvent.globalPos()
+
+    def mouseMoveEvent(self, QMouseEvent):
+        &quot;&quot;&quot;鼠标拖拽事件&quot;&quot;&quot;
+        if self.isPressed:
+            movePoint = QMouseEvent.globalPos() - self.startMovePos
+            widgetPos = self.pos()
+            self.startMovePos = QMouseEvent.globalPos()
+            self.move(widgetPos.x() + movePoint.x(), widgetPos.y() + movePoint.y())
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        &quot;&quot;&quot;鼠标放开事件&quot;&quot;&quot;
+        self.isPressed = False</code></pre><blockquote>
+<p>这里我注释掉了最大化窗口事件，因为没有做好控件的自适应方案。</p>
+</blockquote>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/PyQt5%20%E5%BA%94%E7%94%A8">PyQt5 应用</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98%E6%A0%8F">自定义标题栏</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -222,6 +379,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -262,7 +424,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag&nbsp;",
+        "PyQt5 自定义窗口标题栏, 实现窗口拖拽&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
