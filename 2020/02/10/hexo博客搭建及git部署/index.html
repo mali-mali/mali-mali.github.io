@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    390 字
+                    1.1k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      1 分钟
+                      4 分钟
                   </span>&nbsp;
                 
 
@@ -187,7 +187,52 @@ $ npm install</code></pre><p>这个过程需要一些时间<br>创建好后会�
 |——scaffolds  # 模板文件夹
 |——source  # 资源文件夹
 |  |__ _posts  # 文章文件夹
-|__themes  # 主题文件夹</code></pre><p>我们可以在 <a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">_config.yml</a> 中修改大部分的配置<br>到这里我们的hexo博客就建好了，接下来就是将我们的博客部署到公网上了。这部分的内容放到之后再更新上来。</p>
+|__themes  # 主题文件夹</code></pre><p>我们可以在 <a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">_config.yml</a> 中修改大部分的配置<br>到这里我们的hexo博客就建好了，接下来就是将我们的博客部署到公网上了。</p>
+<h2 id="博客部署到公网"><a href="#博客部署到公网" class="headerlink" title="博客部署到公网"></a>博客部署到公网</h2><p>关于如何将博客部署到公网，这里就要用到我们强大的git了。</p>
+<p>首先我们需要在git上创建一个新仓库。</p>
+<blockquote>
+<p>注意: 仓库名必须是 [你的github用户名.github.io]</p>
+</blockquote>
+<p>然后我们需要生成ssh秘钥文件，因为Hexo部署在github上是通过密钥配对上传的。<br>Windows搜索打开Git Bash 输入</p>
+<pre><code>git config --global user.name &quot;你的GitHub用户名&quot;
+git config --global user.email &quot;你的GitHub注册邮箱&quot;
+
+ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;
+
+cd ~/.ssh</code></pre><p>Windows密钥文件在C:/Users/你的用户名/.ssh目录下。<br>打开git个人设置-SSH and GPG keys 页面- New SSH key 将刚刚复制的id_rsa.pub内容粘贴到key，最后点击Add SSH key。</p>
+<h3 id="网站部署"><a href="#网站部署" class="headerlink" title="网站部署"></a>网站部署</h3><p>设置好git仓库后还需要修改hexo的配置文件，修改_config.yml</p>
+<pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo: https://github.com/你的github用户名/你的github用户名.github.io.git
+  branch: master
+</code></pre><p>修改好后使用</p>
+<pre><code>hexo d</code></pre><p>既可以在公网上通过 [你的github用户名.github.io] 看到你的个人博客啦。</p>
+<h2 id="git同步管理"><a href="#git同步管理" class="headerlink" title="git同步管理"></a>git同步管理</h2><p>既然我们使用了git部署个人博客，那么能不能使用git来做博客的同步管理呢？<br>当然是可以的。<br>在博客根目录下打开Git Bassh</p>
+<pre><code>git init #git初始化
+git remote add origin https://github.com/你的GitHub用户名/你的GitHub用户名.github.io.git #添加仓库地址
+git checkout -b 分支名 #新建分支并切换到新建的分支
+git add . #添加所有本地文件到git
+git commit -m &quot;这里填写你本次提交的备注&quot; #git提交
+git push origin 分支名 #文件推送到hexo分支</code></pre><p>比如这样：</p>
+<pre><code>git init #git初始化
+git remote add origin https://github.com/xxx/xxx.github.io.git #添加仓库地址
+git checkout -b hexo #新建分支并切换到新建的分支
+git add . #添加所有本地文件到git
+git commit -m &quot;我的hexo同步文件&quot; #git提交
+git push origin hexo #文件推送到hexo分支</code></pre><p>这样就把博客项目上传到了git仓库的hexo分支下</p>
+<h3 id="在另一台电脑下载博客工程"><a href="#在另一台电脑下载博客工程" class="headerlink" title="在另一台电脑下载博客工程"></a>在另一台电脑下载博客工程</h3><pre><code>git clone -b 分支名 https://github.com/你的GitHub用户/你的GitHub用户.github.io.git</code></pre><p>克隆下载完成后，进入到你项目的文件夹，配置你的hexo环境</p>
+<pre><code>npm install -g hexo-cli #安装hexo,注意这里不需要hexo初始化,否则之前的hexo配置参数会重置
+npm install #安装依赖库
+npm install hexo-deployer-git #安装git部署相关配置</code></pre><blockquote>
+<p>这里同样是要使用到ssh秘钥的，生成方式同上</p>
+</blockquote>
+<h3 id="文件的上传和更新"><a href="#文件的上传和更新" class="headerlink" title="文件的上传和更新"></a>文件的上传和更新</h3><pre><code>git add .
+git commit -m &quot;这里填写你本次提交的备注&quot;
+git push origin 分支名</code></pre><p>需要更新git上的项目文件时只需要执行上面的代码即可</p>
+<p>同步只需要执行</p>
+<pre><code>git pull</code></pre><p>到这我们不仅将博客部署到了公网上，还能够通过git进行同步管理啦。</p>
 
             <hr>
           </div>
