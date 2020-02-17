@@ -25,7 +25,7 @@
   
   
   <entry>
-    <title>hexo博客搭建</title>
+    <title>hexo博客搭建及git部署</title>
     <link href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/"/>
     <url>/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/</url>
     
@@ -36,6 +36,8 @@
     <tags>
       
       <tag>博客搭建</tag>
+      
+      <tag>git同步</tag>
       
     </tags>
     
