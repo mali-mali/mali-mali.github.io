@@ -1,7 +1,7 @@
 ---
 title: 常用的PyQt5控件样式表
 date: 2020-02-21 12:09
-updated: 2020-02-21 12:10
+updated: 2020-02-23 13:10
 tags:
 - PyQt5
 - 样式
@@ -91,6 +91,25 @@ QComboBox::drop-down{width: 52px;
 QComboBox::down-arrow {border-image: url(.../向下.png);
 					   height:16px;
 					   width:12px}
+
+# 下面三项需要先设置下面代码
+self.QComboBox.currentIndexChanged.connect(self.main_info.usernamechange)
+self.QComboBox.setView(QListView())
+
+# 下拉框样式
+QListView{outline:0px}
+
+# 下拉框选项
+QListView::item{border-bottom:1px solid rgb(230, 230, 230, 1);
+				padding-left:2px;
+				font-size:12px;
+				font-weight:400;
+				color:rgba(51,51,51,1);
+				line-height:1px;
+				height:18px}
+				
+# 下拉框选项鼠标悬停
+QListView::item::hover{background:rgba(245, 245, 254, 0.9)}")
 ```
 
 ### 输入框
