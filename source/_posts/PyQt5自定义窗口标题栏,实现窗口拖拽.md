@@ -1,7 +1,7 @@
 ---
 title: PyQt5 自定义窗口标题栏, 实现窗口拖拽
 date: 2020-02-13 16:00:00
-updated: 2020-02-23 13:10
+updated: 2020-02-24 13:40
 tags: 
 - PyQt5 应用
 - 自定义标题栏
@@ -82,12 +82,12 @@ class test(QMainWindow):
 
     def mousePressEvent(self, QMouseEvent):
         """鼠标点击事件"""
-        if QMouseEvent.y() < self.titlebar.height() and QMouseEvent.x() > self.sidebar.width():  # 限制在标题栏区域内
+        if QMouseEvent.y() < self.titlebar.height():  # 限制在标题栏区域内
             self.startMovePos = QMouseEvent.globalPos()
 
     def mouseMoveEvent(self, QMouseEvent):
         """鼠标拖拽事件"""
-        if QMouseEvent.y() < self.titlebar.height() and QMouseEvent.x() > self.sidebar.width():  # 限制在标题栏区域内
+        if QMouseEvent.y() < self.titlebar.height():  # 限制在标题栏区域内
             movePoint = QMouseEvent.globalPos() - self.startMovePos
             widgetPos = self.pos()
             self.startMovePos = QMouseEvent.globalPos()
