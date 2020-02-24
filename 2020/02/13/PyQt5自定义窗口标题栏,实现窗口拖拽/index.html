@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    532 字
+                    518 字
                   </span>&nbsp;
                 
 
@@ -239,12 +239,12 @@
 
     def mousePressEvent(self, QMouseEvent):
         &quot;&quot;&quot;鼠标点击事件&quot;&quot;&quot;
-        if QMouseEvent.y() &lt; self.titlebar.height() and QMouseEvent.x() &gt; self.sidebar.width():  # 限制在标题栏区域内
+        if QMouseEvent.y() &lt; self.titlebar.height():  # 限制在标题栏区域内
             self.startMovePos = QMouseEvent.globalPos()
 
     def mouseMoveEvent(self, QMouseEvent):
         &quot;&quot;&quot;鼠标拖拽事件&quot;&quot;&quot;
-        if QMouseEvent.y() &lt; self.titlebar.height() and QMouseEvent.x() &gt; self.sidebar.width():  # 限制在标题栏区域内
+        if QMouseEvent.y() &lt; self.titlebar.height():  # 限制在标题栏区域内
             movePoint = QMouseEvent.globalPos() - self.startMovePos
             widgetPos = self.pos()
             self.startMovePos = QMouseEvent.globalPos()
