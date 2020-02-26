@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    539 字
+                    612 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      2 分钟
+                      3 分钟
                   </span>&nbsp;
                 
 
@@ -182,7 +182,7 @@
 <pre><code>文字类：
     font-size:14px;  # 字号
     font-family:Microsoft YaHei;  # 字体
-    font-weight:400;&quot;  # 笔重
+    font-weight:400;  # 笔重
     color:rgba(30,159,255,1);  # 颜色
     line-height:40px;  # 行距</code></pre><pre><code>边框类：
     border:none;  # 无边框
@@ -246,7 +246,7 @@ QListView::item{border-bottom:1px solid rgb(230, 230, 230, 1);
                 height:18px}
 
 # 下拉框选项鼠标悬停
-QListView::item::hover{background:rgba(245, 245, 254, 0.9)}&quot;)</code></pre><h3 id="输入框"><a href="#输入框" class="headerlink" title="输入框"></a>输入框</h3><pre><code>QLineEdit{background:rgba(245,245,245,1);
+QListView::item::hover{background:rgba(245, 245, 254, 0.9)})</code></pre><h3 id="输入框"><a href="#输入框" class="headerlink" title="输入框"></a>输入框</h3><pre><code>QLineEdit{background:rgba(245,245,245,1);
           border:1px solid rgba(30,159,255,1);
           opacity:0.9;
              border-radius:2px;
@@ -255,7 +255,23 @@ QListView::item::hover{background:rgba(245, 245, 254, 0.9)}&quot;)</code></pre><
           font-weight:400;
           color:rgba(134,134,134,1);
           line-height:72px;
-          padding-left:15px}</code></pre><blockquote>
+          padding-left:15px}</code></pre><h3 id="滑块"><a href="#滑块" class="headerlink" title="滑块"></a>滑块</h3><pre><code># 滑块条
+QSlider::groove:horizontal{border:none;
+                           height:12px}
+# 以划过部分                           
+QSlider::sub-page:horizontal{background:rgba(0,191,255,0.5);
+                             border-radius:6px}
+# 未划过部分                             
+QSlider::add-page:horizontal{background:rgba(230,230,230,1);
+                             border-radius:6px}
+# 滑块                             
+QSlider::handle:horizontal{background:rgba(0,191,255,1);
+                           border:none;
+                           width:20px;
+                           height:20px;
+                           margin-top:-4px;
+                           margin-bottom:-4px;
+                           border-radius:10px}</code></pre><blockquote>
 <p>本文用于记录我在工作中常用的控件样式表，后续还会继续更新。</p>
 </blockquote>
 
