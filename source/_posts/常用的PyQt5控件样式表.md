@@ -1,7 +1,7 @@
 ---
 title: 常用的PyQt5控件样式表
 date: 2020-02-21 12:09
-updated: 2020-02-23 13:10
+updated: 2020-02-26 19:10
 tags:
 - PyQt5
 - 样式
@@ -24,7 +24,7 @@ tags:
 文字类：
 	font-size:14px;  # 字号
     font-family:Microsoft YaHei;  # 字体
-    font-weight:400;"  # 笔重
+    font-weight:400;  # 笔重
     color:rgba(30,159,255,1);  # 颜色
     line-height:40px;  # 行距
 ```
@@ -109,7 +109,7 @@ QListView::item{border-bottom:1px solid rgb(230, 230, 230, 1);
 				height:18px}
 				
 # 下拉框选项鼠标悬停
-QListView::item::hover{background:rgba(245, 245, 254, 0.9)}")
+QListView::item::hover{background:rgba(245, 245, 254, 0.9)})
 ```
 
 ### 输入框
@@ -124,6 +124,27 @@ QLineEdit{background:rgba(245,245,245,1);
 		  color:rgba(134,134,134,1);
 		  line-height:72px;
 		  padding-left:15px}
+```
+
+### 滑块
+```
+# 滑块条
+QSlider::groove:horizontal{border:none;
+                           height:12px}
+# 以划过部分						   
+QSlider::sub-page:horizontal{background:rgba(0,191,255,0.5);
+                             border-radius:6px}
+# 未划过部分							 
+QSlider::add-page:horizontal{background:rgba(230,230,230,1);
+                             border-radius:6px}
+# 滑块							 
+QSlider::handle:horizontal{background:rgba(0,191,255,1);
+                           border:none;
+                           width:20px;
+                           height:20px;
+                           margin-top:-4px;
+                           margin-bottom:-4px;
+                           border-radius:10px}
 ```
 
 >本文用于记录我在工作中常用的控件样式表，后续还会继续更新。
