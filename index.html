@@ -145,6 +145,55 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/">
+        <p class="h4 index-header">使用QtWebEngineWidgets开发Web浏览器</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">由于公司的项目常常使用混编模式开发，所以在客户端软件中嵌套web页面就成了必不可少的要求。此次我使用到了PyQt5开发客户端界面，并尝试将web页面嵌套进客户端窗口内。具体使用的Qt模块为QtWebEngineWidgets模块，该模块是在python里是需要单独安装和导入的。
+代码案例import sys
+from PyQt5.Qt import QApplication
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+
+
+class my_Browser(QWidget):
+
+    def __init__(self):
+        super(my_Browser, self).__init__(None)
+        self.setFixedSize(1024, 768)
+
+        self.browser = QWebEngineView(self)  # web窗口
+ </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-02&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/PyQt5">PyQt5</a>&nbsp;
+          
+            <a href="/tags/QtWebEngineWidgets">QtWebEngineWidgets</a>&nbsp;
+          
+            <a href="/tags/Web%E6%B5%8F%E8%A7%88%E5%99%A8">Web浏览器</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/28/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/">
         <p class="h4 index-header">PyQt5自定义控件之环形进度条</p>
         
