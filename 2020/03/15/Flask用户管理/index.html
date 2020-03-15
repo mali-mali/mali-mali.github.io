@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Flask用户管理 ~ Hexo</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Hexo</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, March 15th 2020, 11:30 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.1k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>在<a href="https://mali-mali.github.io/2020/03/07/%E4%BD%BF%E7%94%A8Flask%E5%88%9B%E5%BB%BApython%20http%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener">上一篇</a> 中，我们使用了Flask创建了一个python的http后台服务，<br>今天我们来讲讲如何在其中实现用户的登录管理。</p>
+<h2 id="api初始化"><a href="#api初始化" class="headerlink" title="api初始化"></a>api初始化</h2><p>首先同样的初始化我们的api</p>
+<pre><code>from flask import Flask
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.session_protection = &#39;strong&#39;
+
+
+def start_aip(config_name, collection=None):
+    &quot;&quot;&quot;
+    初始化API
+    :param config_name:
+    :param collection:
+    :return:
+    &quot;&quot;&quot;
+    app = Flask(__name__)
+
+    db.init_app(app)
+    Migrate(app, db)
+    login_manager.init_app(app)
+
+    from test.my_info import api
+    api.init_app(app, version=&#39;1.0&#39;, title=&#39;API&#39;, description=&#39;A test API&#39;)
+
+    return app</code></pre><h2 id="登录验证"><a href="#登录验证" class="headerlink" title="登录验证"></a>登录验证</h2><p>这里创建一个User.py</p>
+<pre><code>import time
+import functools
+from datetime import datetime
+from flask import jsonify, request
+from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from werkzeug.security import generate_password_hash, check_password_hash
+from config import settings
+from ..models.error import unauthorized, forbidden
+
+from .. import db
+from .. import login_manager
+
+
+class User(UserMixin, db.Model):
+    &quot;&quot;&quot;
+    用户表
+    :param: UserMixin
+    :param: db.Model
+    :return:
+    &quot;&quot;&quot;
+    __tablename__ = &#39;users&#39;
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))
+    confirmed = db.Column(db.Boolean, default=False)
+    name = db.Column(db.String(64))
+    location = db.Column(db.String(64))
+    about_me = db.Column(db.Text())
+    member_since = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    avatar_hash = db.Column(db.String(32))
+    tokenTime = time.mktime(datetime.now().timetuple())
+
+    def generate_auth_token(self, expiration):
+        &quot;&quot;&quot;
+        生成token
+        :return:
+        &quot;&quot;&quot;
+        s = Serializer(settings.Config.SECRET_KEY, expires_in=expiration)
+        token = s.dumps({&#39;id&#39;: self.id}).decode(&#39;ascii&#39;)
+        return token
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+def login_required(view_func):
+    @functools.wraps(view_func)
+    def verify_token(*args, **kwargs):
+        try:
+            # 在请求头上拿到token
+            token = request.headers[&quot;token&quot;]
+        except Exception:
+            # 没接收的到token,给前端抛出错误
+            return forbidden(&#39;缺少参数token&#39;)
+
+        s = Serializer(settings.Config.SECRET_KEY)
+        try:
+            s.loads(token)
+        except Exception:
+            # print(&quot;验证失败, 无效的token&quot;)
+            return unauthorized(&#39;验证失败, 无效的token&#39;)
+
+        return view_func(*args, **kwargs)
+
+    return verify_token
+</code></pre><h2 id="接口及其他"><a href="#接口及其他" class="headerlink" title="接口及其他"></a>接口及其他</h2><p>最后我们只需要建立我们的登录接口即可</p>
+<pre><code>upload_parser = reqparse.RequestParser()
+upload_parser.add_argument(&#39;token&#39;, type=str, location=&#39;headers&#39;)
+user = api.namespace(&#39;Login&#39;, path=&#39;/&#39;, description=&#39;hello world&#39;)
+## 应为我们之前使用了swagger在线api这里需要编辑请求时需要传递的参数（可以忽略）
+login_model = smart_tax.api.model(&#39;Login&#39;, {
+    &#39;username&#39;: fields.String(description=&#39;用户名, 默认:admin&#39;),
+    &#39;password&#39;: fields.String(description=&#39;密码, 默认:yiyetong123&#39;)
+})
+
+
+@user.route(&#39;/login&#39;)
+class login(Resource):
+    &quot;&quot;&quot;
+    登录：
+    &quot;&quot;&quot;
+    @user.expect(login_model)
+    def post(self):
+        &#39;&#39;&#39;登录&#39;&#39;&#39;
+        username = api.payload.get(&#39;username&#39;, None)
+        password = api.payload.get(&#39;password&#39;, None)
+        user = User.query.filter_by(username=username).first()
+        if user is not None and user.verify_password(password):
+            login_user(user)
+            return jsonify({&#39;code&#39;: 200, &#39;token&#39;: user.generate_auth_token(tokenExpiration), &#39;expiration&#39;: tokenExpiration})
+        else:
+            return unauthorized(&#39;Invalid username or password.&#39;)
+
+    # def get(self):
+    #     &#39;&#39;&#39;验证失败自动跳转&#39;&#39;&#39;
+    #     return unauthorized(&#39;Unauthorized.&#39;)
+
+
+@user.route(&#39;/logout&#39;)
+class logout(Resource):
+    &quot;&quot;&quot;
+    登出
+    &quot;&quot;&quot;
+    @login_required
+    @user.expect(upload_parser)
+    def get(self):
+        &#39;&#39;&#39;登出&#39;&#39;&#39;
+        logout_user()
+        logoutMessage = {&quot;message&quot;: &#39;You have been logged out.&#39;}
+        flash(logoutMessage)
+        return jsonify(logoutMessage)</code></pre><blockquote>
+<p>在需要进行登录校验的接口上添加 @login_required 后该接口必须输入登入时返回的token信息才可访问， @user.expect(upload_parser) 为swagger在线api的装饰器。</p>
+</blockquote>
+<h3 id="自定义错误信息"><a href="#自定义错误信息" class="headerlink" title="自定义错误信息"></a>自定义错误信息</h3><pre><code>def bad_request(message):
+    &quot;&quot;&quot;
+    服务器不理解客户端的请求，未做任何处理。
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 400, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def unauthorized(message):
+    &quot;&quot;&quot;
+    用户未提供身份验证凭据，或者没有通过身份验证。
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 401, &#39;message&#39;: message, &#39;data&#39;: None}
+    # return plugin.api.abort(code=200, message=message)
+
+
+def forbidden(message):
+    &quot;&quot;&quot;
+    用户通过了身份验证，但是不具有访问资源所需的权限。
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 403, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def NotFound(message):
+    &quot;&quot;&quot;
+
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 404, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def NotFoundDevice(message):
+    &quot;&quot;&quot;
+
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 412, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def internalServerError(message):
+    &quot;&quot;&quot;
+
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 500, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+
+def deviceTimeoutError(message):
+    &quot;&quot;&quot;
+
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 501, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def parameterError(message):
+    &quot;&quot;&quot;
+
+    :param message:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 502, &#39;message&#39;: message, &#39;data&#39;: None}
+
+
+def successful(data):
+    &quot;&quot;&quot;
+    成功
+    :param data:
+    :return:
+    &quot;&quot;&quot;
+    return {&#39;code&#39;: 200, &#39;message&#39;: None, &#39;data&#39;: data}</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/python">python</a>
+                
+                  <a class="hover-with-bg" href="/tags/flask">flask</a>
+                
+                  <a class="hover-with-bg" href="/tags/http">http</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Flask用户管理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

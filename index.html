@@ -145,6 +145,154 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+        <p class="h4 index-header">Flask用户管理</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">在上一篇 中，我们使用了Flask创建了一个python的http后台服务，今天我们来讲讲如何在其中实现用户的登录管理。
+api初始化首先同样的初始化我们的api
+from flask import Flask
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.session_protection = &#39;strong&#39;
+
+
+def start_aip(config_name, collection=None):
+    &quot;&quot;&quot;
+    初始化API
+    :param config_name:
+    :param collection:
+    :return:
+    &quot;&quot;&quot;
+    app = Flask(_</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/flask">flask</a>&nbsp;
+          
+            <a href="/tags/http">http</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/10/QWebEngineView%E4%B8%8E%E7%BD%91%E9%A1%B5JS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%20%E5%BF%BD%E7%95%A5%E7%BD%91%E9%A1%B5SSL%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF/">
+        <p class="h4 index-header">QWebEngineView与网页JS进行交互 忽略网页SSL证书错误</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">之前我们讲到了使用QtWebEngineWidgets模块开发一个内嵌webview的Qt5客户端界面。竟然我们使用了内嵌式的webview那就免不了要与网页JS代码进行一些交互，今天我们就说说如何使我们的python程序与网页JS进行交互。
+QWebEngineView与网页JS进行交互这里我们需要先用到PyQt5.QtWebChannel，并且重写一个我们的webview类，继承至QWebEngineView. 参考
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtWebChannel import QWebChannel
+
+class My_Browser(QWebEngineView):
+    SigSendMessageToJS = pyqtSignal(str)
+
+    def __init__(self, parent):
+        super().__init__(par</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/QWebEngineView">QWebEngineView</a>&nbsp;
+          
+            <a href="/tags/SSL">SSL</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/07/%E4%BD%BF%E7%94%A8Flask%E5%88%9B%E5%BB%BApython%20http%E6%A1%86%E6%9E%B6/">
+        <p class="h4 index-header">使用Flask创建python http框架</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">在python中，我们可以很方便的通过flask这个框架来创建一个http的后台服务。还可以通过flask_restplus快速创建一个swagger在线api文档。
+http服务创建先来一个简单的 hello world
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route(&#39;/hello&#39;)
+def helloworld():
+    return &#39;hello world&#39;
+
+
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&#39;127.0.0.1&#39;, port=7777, debug=False, threaded=True)生成swagger在线api文档通常我们都会使用Postman来进行接口的测试，但是多人项目中Postman就有些不方便了。为了方便接口的测试，我们来创建一个swagger在线api文档
+ini</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-07&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/flask">flask</a>&nbsp;
+          
+            <a href="/tags/http">http</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/">
         <p class="h4 index-header">使用QtWebEngineWidgets开发Web浏览器</p>
         

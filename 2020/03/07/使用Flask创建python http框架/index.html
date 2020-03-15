@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Tags ~ Hexo</title>
+  <title>使用Flask创建python http框架 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Saturday, March 7th 2020, 1:00 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    445 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,22 +163,133 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center tagcloud">
-  <a href="/tags/PyQt5/" style="font-size: 30px; color: #337ab7">PyQt5</a> <a href="/tags/PyQt5-%E5%BA%94%E7%94%A8/" style="font-size: 15px; color: #bbe">PyQt5 应用</a> <a href="/tags/QWebEngineView/" style="font-size: 15px; color: #bbe">QWebEngineView</a> <a href="/tags/QtWebEngineWidgets/" style="font-size: 20px; color: #8ea5dc">QtWebEngineWidgets</a> <a href="/tags/SSL/" style="font-size: 15px; color: #bbe">SSL</a> <a href="/tags/Web%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15px; color: #bbe">Web浏览器</a> <a href="/tags/flask/" style="font-size: 20px; color: #8ea5dc">flask</a> <a href="/tags/git%E5%90%8C%E6%AD%A5/" style="font-size: 15px; color: #bbe">git同步</a> <a href="/tags/http/" style="font-size: 20px; color: #8ea5dc">http</a> <a href="/tags/python/" style="font-size: 25px; color: #6090c9">python</a> <a href="/tags/%E5%8A%A8%E7%94%BB/" style="font-size: 15px; color: #bbe">动画</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 15px; color: #bbe">博客搭建</a> <a href="/tags/%E6%A0%B7%E5%BC%8F/" style="font-size: 20px; color: #8ea5dc">样式</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/" style="font-size: 15px; color: #bbe">自定义控件</a> <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98%E6%A0%8F/" style="font-size: 15px; color: #bbe">自定义标题栏</a>
-</div>
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>在python中，我们可以很方便的通过flask这个框架来创建一个http的后台服务。还可以通过flask_restplus快速创建一个swagger在线api文档。</p>
+<h2 id="http服务创建"><a href="#http服务创建" class="headerlink" title="http服务创建"></a>http服务创建</h2><p>先来一个简单的 hello world</p>
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route(&#39;/hello&#39;)
+def helloworld():
+    return &#39;hello world&#39;
+
+
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&#39;127.0.0.1&#39;, port=7777, debug=False, threaded=True)</code></pre><h2 id="生成swagger在线api文档"><a href="#生成swagger在线api文档" class="headerlink" title="生成swagger在线api文档"></a>生成swagger在线api文档</h2><p>通常我们都会使用Postman来进行接口的测试，但是多人项目中Postman就有些不方便了。<br>为了方便接口的测试，我们来创建一个swagger在线api文档</p>
+<h3 id="init-py"><a href="#init-py" class="headerlink" title="init.py"></a><strong>init</strong>.py</h3><pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from flask_restplus import Api, reqparse
+
+api = Api()
+
+hello = api.namespace(&#39;Hello&#39;, path=&#39;/&#39;, description=&#39;hello world&#39;)
+
+from . import info</code></pre><blockquote>
+<p>新建一个存放接口代码的文件夹my_info，在<strong>init</strong>.py中输入上面的代码，再在这个目录下创建一个info.py用于存放接口代码。</p>
+</blockquote>
+<h3 id="info-py"><a href="#info-py" class="headerlink" title="info.py"></a>info.py</h3><pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from ..my_info import api, hello
+from flask_restplus import Resource
+from flask_restplus import fields
+
+hello_model = api.model(&#39;hello&#39;, {
+    &#39;text&#39;: fields.String(description=&#39;测试文字&#39;)
+})
+
+
+@hello.route(&#39;/hello&#39;)
+class helloworld(Resource):
+
+    def get(self):
+        return &#39;hello world&#39;
+
+    @hello.expect(hello_model)
+    def post(self):
+        return api.payload.get(&#39;text&#39;, &#39;没有发送内容!&#39;)</code></pre><p>再对初始化服务代码进行一些修改</p>
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from flask import Flask
+
+
+def start_aip():
+    &quot;&quot;&quot;
+    初始化API
+    :return:
+    &quot;&quot;&quot;
+    app = Flask(__name__)
+
+    from test.my_info import api
+    api.init_app(app, version=&#39;1.0&#39;, title=&#39;API&#39;, description=&#39;A test API&#39;)
+
+    return app
+
+
+if __name__ == &quot;__main__&quot;:
+    app = start_aip()
+    app.run(host=&#39;127.0.0.1&#39;, port=7777, debug=False, threaded=True)</code></pre><p>这样，我们就开启了一个简单的http服务，并且创建了一个 hello world 接口，以及一个在线api文档。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/python">python</a>
+                
+                  <a class="hover-with-bg" href="/tags/flask">flask</a>
+                
+                  <a class="hover-with-bg" href="/tags/http">http</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -222,6 +368,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -262,7 +413,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag&nbsp;",
+        "使用Flask创建python http框架&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
