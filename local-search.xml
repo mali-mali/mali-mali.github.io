@@ -4,6 +4,48 @@
   
   
   <entry>
+    <title>python调用 C# Dll</title>
+    <link href="/2020/03/22/python%E8%B0%83%E7%94%A8%20C#%20Dll/"/>
+    <url>/2020/03/22/python%E8%B0%83%E7%94%A8%20C#%20Dll/</url>
+    
+    <content type="html"><![CDATA[<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://blog.csdn.net/LTG01/article/details/80700513" target="_blank" rel="noopener">参考</a></p><pre><code>import clr  #clr是公共运行时环境，这个模块是与C#交互的核心clr.FindAssembly(&quot;PythonNetTest.dll&quot;) ## 加载c#dll文件from PythonNetTest import *    # 导入命名空间instance = Class1() #class1是dll里面的类print(instance.AddShort(2, 3))#一个简单的加法</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>C# Dll</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>获取QtWebEngine的Cookie信息</title>
+    <link href="/2020/03/22/%E8%8E%B7%E5%8F%96QtWebEngine%E7%9A%84Cookie%E4%BF%A1%E6%81%AF/"/>
+    <url>/2020/03/22/%E8%8E%B7%E5%8F%96QtWebEngine%E7%9A%84Cookie%E4%BF%A1%E6%81%AF/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://mali-mali.github.io/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/" target="_blank" rel="noopener">之前</a>我们使用QtWebEngine创建了一个浏览器，并且为这个浏览器添加了cookie信息，那么我们有没有可能需要的是浏览器的cookie信息呢？</p><h2 id="获取QtWebEngine浏览器Cookie信息"><a href="#获取QtWebEngine浏览器Cookie信息" class="headerlink" title="获取QtWebEngine浏览器Cookie信息"></a>获取QtWebEngine浏览器Cookie信息</h2><p>在构造函数中添加如下代码</p><pre><code>    ...    def __init__(self, parent=None):        super().__init__(parent)        ...        QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)        self.cookies = {}  # 存放cookie字典    ...</code></pre><p>接下来添加两个函数</p><pre><code>    def onCookieAdd(self, cookie):  # 处理cookie添加的事件        print(cookie)        name = cookie.name().data().decode(&#39;utf-8&#39;)  # 先获取cookie的名字，再把编码处理一下        value = cookie.value().data().decode(&#39;utf-8&#39;)  # 先获取cookie值，再把编码处理一下        self.cookies[name] = value  # 将cookie保存到字典里    # 获取cookie    def get_cookie(self):        print(self.cookies.items())        # cookie_str = &#39;&#39;        # for key, value in self.cookies.items():  # 遍历字典        #     cookie_str += (key + &#39;=&#39; + value + &#39;;&#39;)  # 将键值对拿出来拼接一下        return dict(self.cookies.items())  # 返回拼接好的字符串</code></pre><p>这时我们会获取的一些不需要的cookie信息，提取一下</p><pre><code>cookie = &#39;JSESSIONID=&#39; + self.get_cookie().get(&#39;JSESSIONID&#39;, &#39;&#39;)</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>QtWebEngine</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Flask用户管理</title>
     <link href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"/>
     <url>/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>

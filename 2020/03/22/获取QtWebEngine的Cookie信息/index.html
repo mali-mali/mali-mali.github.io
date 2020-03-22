@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>获取QtWebEngine的Cookie信息 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, March 22nd 2020, 10:30 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    262 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,59 +163,83 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">12 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/28/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PyQt5自定义控件之环形进度条</span>
-      <span style="float: right;">02-28</span>
-    </a>
-  
-    
-    <a href="/2020/02/24/QtWebEngineWidgets%E5%9C%A8%E6%9F%90%E4%BA%9B%E8%AE%BE%E5%A4%87%E4%B8%8A%E5%B4%A9%E6%BA%83%E7%9A%84%E9%97%AE%E9%A2%98/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">QtWebEngineWidgets在某些设备上崩溃的问题</span>
-      <span style="float: right;">02-24</span>
-    </a>
-  
-    
-    <a href="/2020/02/21/%E5%B8%B8%E7%94%A8%E7%9A%84PyQt5%E6%8E%A7%E4%BB%B6%E6%A0%B7%E5%BC%8F%E8%A1%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">常用的PyQt5控件样式表</span>
-      <span style="float: right;">02-21</span>
-    </a>
-  
-    
-    <a href="/2020/02/13/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F,%E5%AE%9E%E7%8E%B0%E7%AA%97%E5%8F%A3%E6%8B%96%E6%8B%BD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PyQt5 自定义窗口标题栏, 实现窗口拖拽</span>
-      <span style="float: right;">02-13</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">hexo博客搭建及git部署</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p><a href="https://mali-mali.github.io/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/" target="_blank" rel="noopener">之前</a>我们使用QtWebEngine创建了一个浏览器，并且为这个浏览器添加了cookie信息，那么我们有没有可能需要的是浏览器的cookie信息呢？</p>
+<h2 id="获取QtWebEngine浏览器Cookie信息"><a href="#获取QtWebEngine浏览器Cookie信息" class="headerlink" title="获取QtWebEngine浏览器Cookie信息"></a>获取QtWebEngine浏览器Cookie信息</h2><p>在构造函数中添加如下代码</p>
+<pre><code>    ...
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        ...
+        QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)
+        self.cookies = {}  # 存放cookie字典
+    ...</code></pre><p>接下来添加两个函数</p>
+<pre><code>    def onCookieAdd(self, cookie):  # 处理cookie添加的事件
+        print(cookie)
+        name = cookie.name().data().decode(&#39;utf-8&#39;)  # 先获取cookie的名字，再把编码处理一下
+        value = cookie.value().data().decode(&#39;utf-8&#39;)  # 先获取cookie值，再把编码处理一下
+        self.cookies[name] = value  # 将cookie保存到字典里
 
-              </div>
-            </div>
+    # 获取cookie
+    def get_cookie(self):
+        print(self.cookies.items())
+        # cookie_str = &#39;&#39;
+        # for key, value in self.cookies.items():  # 遍历字典
+        #     cookie_str += (key + &#39;=&#39; + value + &#39;;&#39;)  # 将键值对拿出来拼接一下
+        return dict(self.cookies.items())  # 返回拼接好的字符串</code></pre><p>这时我们会获取的一些不需要的cookie信息，提取一下</p>
+<pre><code>cookie = &#39;JSESSIONID=&#39; + self.get_cookie().get(&#39;JSESSIONID&#39;, &#39;&#39;)</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/python">python</a>
+                
+                  <a class="hover-with-bg" href="/tags/QtWebEngine">QtWebEngine</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -259,6 +318,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -299,7 +363,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "获取QtWebEngine的Cookie信息&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

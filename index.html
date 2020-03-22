@@ -145,6 +145,87 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/22/python%E8%B0%83%E7%94%A8%20C#%20Dll/">
+        <p class="h4 index-header">python调用 C# Dll</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">代码参考
+import clr  #clr是公共运行时环境，这个模块是与C#交互的核心
+clr.FindAssembly(&quot;PythonNetTest.dll&quot;) ## 加载c#dll文件
+
+from PythonNetTest import *    # 导入命名空间
+instance = Class1() #class1是dll里面的类
+print(instance.AddShort(2, 3))#一个简单的加法</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-22&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/C#%20Dll">C# Dll</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/22/%E8%8E%B7%E5%8F%96QtWebEngine%E7%9A%84Cookie%E4%BF%A1%E6%81%AF/">
+        <p class="h4 index-header">获取QtWebEngine的Cookie信息</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">之前我们使用QtWebEngine创建了一个浏览器，并且为这个浏览器添加了cookie信息，那么我们有没有可能需要的是浏览器的cookie信息呢？
+获取QtWebEngine浏览器Cookie信息在构造函数中添加如下代码
+    ...
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        ...
+        QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)
+        self.cookies = {}  # 存放cookie字典
+    ...接下来添加两个函数
+    def onCookieAdd(self, cookie):  # 处理cookie添加的事件
+        print(cookie)
+        name = cookie.name().data().decode(&#39;utf-8&#39;)  # 先获取cookie的</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-22&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/QtWebEngine">QtWebEngine</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
         <p class="h4 index-header">Flask用户管理</p>
         
@@ -518,85 +599,19 @@ opengl32sw.dll四个dll拷贝到exe运行路径下就可以正常运行了。
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/">
-        <p class="h4 index-header">hexo博客搭建及git部署</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">本文用于记录我在创建hexo博客时的方法和步骤。这是我第一次创建自己的博客，使用hexo主要是因为他的创建方法很简单，还可以通过git部署到公网。这篇文章大部分参考了hexo的 官方文档 所有内容在官方文档中都有更加详细的说明。
-HexoHexo 是一个快速、简洁且高效的博客框架。hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。官网
-安装Hexo在你要存放博客的文件夹下使用命令窗口输入:
-$ npm install -g hexo-clihexo是机遇 Node.js 的，所以在安装hexo之前我们需要先安装好Node.js因为我们后面要使用git将我们的博客部署到公网所以也需要先把 git 安装好
-
-使用Node.js官方安装程序时，请确保勾选 Add to PATH 选项（默认已勾选）
-
-建站$ hexo init
-$ npm install这个过程需要一些时间创建好后会得到这样的文件结构
-.
-|——_config.yml  # 网站的配置信息
-|——package.json  # 应用程序信息
-|——scaffolds  # </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-10&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA">博客搭建</a>&nbsp;
-          
-            <a href="/tags/git%E5%90%8C%E6%AD%A5">git同步</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/22/hello-world/">
-        <p class="h4 index-header">Hello World</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post$ hexo new &quot;My New Post&quot;
-More info: Writing
-Run server$ hexo server
-More info: Server
-Generate static files$ hexo generate
-More info: Generating
-Deploy to remote sites$ hexo deploy
-More info: Deployment
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-22&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
 
 
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
