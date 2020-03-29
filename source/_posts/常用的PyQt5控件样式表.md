@@ -1,7 +1,7 @@
 ---
 title: 常用的PyQt5控件样式表
 date: 2020-02-21 12:09
-updated: 2020-02-26 19:10
+updated: 2020-03-29 10:10
 tags:
 - PyQt5
 - 样式
@@ -27,6 +27,12 @@ tags:
     font-weight:400;  # 笔重
     color:rgba(30,159,255,1);  # 颜色
     line-height:40px;  # 行距
+	
+	文本对齐
+	text-align: left;
+	text-align: right;
+	text-align: top;
+	text-align: bottom;
 ```
 
 ```
