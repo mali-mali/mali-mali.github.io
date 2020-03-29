@@ -145,6 +145,51 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/13/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F,%E5%AE%9E%E7%8E%B0%E7%AA%97%E5%8F%A3%E6%8B%96%E6%8B%BD/">
+        <p class="h4 index-header">PyQt5 自定义窗口标题栏, 实现窗口拖拽</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">最近在使用pyqt5做窗口应用程序，因为原始的标题栏不能满足需求我们常常会使用到自定义的标题栏。本篇放上一个最简单的例子提供参考
+隐藏原始标题栏class test(QMainWindow):
+
+    def __init__(self):
+        super(test, self).__init__(None, Qt.FramelessWindowHint)  # 无边框设置
+        self.setFixedSize(880, 640)
+        self.setStyleSheet(&quot;QMainWindow{background:rgba(255,255,255,255)}&quot;)
+        self.init()
+使用 Qt.FramelessWindowHint将我们的窗口设置为无边框窗口
+
+创建一个标题栏    def init(self):
+        # 创建一个标题栏
+        self.titlebar = QLabel(self)
+        self.titlebar.setFixedSize(880,</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-13&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/PyQt5%20%E5%BA%94%E7%94%A8">PyQt5 应用</a>&nbsp;
+          
+            <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98%E6%A0%8F">自定义标题栏</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/">
         <p class="h4 index-header">hexo博客搭建及git部署</p>
         

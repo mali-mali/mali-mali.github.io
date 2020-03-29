@@ -145,6 +145,57 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/29/PyQt5%20QThread%E4%BD%BF%E7%94%A8/">
+        <p class="h4 index-header">PyQt5 QThread使用</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">在使用PyQt进行开发时，我们常常会使用线程来将部分逻辑代码与界面主线程分离。这时我们一般会使用Python的threading模块来实现，但是这个模块在某些情况下会导致UI界面卡死（可能是我使用方法不对），所以我更推荐使用QThread来进行多线程操作。
+代码示例这里我们创建一个继承至QThread的类。
+class myThread(QThread):
+
+    pyqtsignal = pyqtSignal()
+
+    def __init__(self):
+        super(myThread, self).__init__()
+        &quot;&quot;&quot;初始化线程&quot;&quot;&quot;
+
+    def run(self):
+        try:
+            &quot;&quot;&quot;这里是我们要进行的耗时操作&quot;&quot;&quot;
+
+            self.pyqtsignal.emit()  # 发送信号
+
+            self.exit(0)  # 关闭线程
+</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-29&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/PyQt5">PyQt5</a>&nbsp;
+          
+            <a href="/tags/QThread">QThread</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/22/python%E8%B0%83%E7%94%A8%20C#%20Dll/">
         <p class="h4 index-header">python调用 C# Dll</p>
         
@@ -531,9 +582,12 @@ opengl32sw.dll四个dll拷贝到exe运行路径下就可以正常运行了。
     font-family:Microsoft YaHei;  # 字体
     font-weight:400;  # 笔重
     color:rgba(30,159,255,1);  # 颜色
-    line-height:40px;  # 行距边框类：
-    border:none;  # 无边框
-    border:1px solid rgb(255, 255</div>
+    line-height:40px;  # 行距
+
+    文本对齐
+    text-align: left;
+    text-align: right;
+    te</div>
         </div>
       </a>
 
@@ -548,51 +602,6 @@ opengl32sw.dll四个dll拷贝到exe运行路径下就可以正常运行了。
             <a href="/tags/PyQt5">PyQt5</a>&nbsp;
           
             <a href="/tags/%E6%A0%B7%E5%BC%8F">样式</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/13/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F,%E5%AE%9E%E7%8E%B0%E7%AA%97%E5%8F%A3%E6%8B%96%E6%8B%BD/">
-        <p class="h4 index-header">PyQt5 自定义窗口标题栏, 实现窗口拖拽</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">最近在使用pyqt5做窗口应用程序，因为原始的标题栏不能满足需求我们常常会使用到自定义的标题栏。本篇放上一个最简单的例子提供参考
-隐藏原始标题栏class test(QMainWindow):
-
-    def __init__(self):
-        super(test, self).__init__(None, Qt.FramelessWindowHint)  # 无边框设置
-        self.setFixedSize(880, 640)
-        self.setStyleSheet(&quot;QMainWindow{background:rgba(255,255,255,255)}&quot;)
-        self.init()
-使用 Qt.FramelessWindowHint将我们的窗口设置为无边框窗口
-
-创建一个标题栏    def init(self):
-        # 创建一个标题栏
-        self.titlebar = QLabel(self)
-        self.titlebar.setFixedSize(880,</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-13&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/PyQt5%20%E5%BA%94%E7%94%A8">PyQt5 应用</a>&nbsp;
-          
-            <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98%E6%A0%8F">自定义标题栏</a>&nbsp;
           
         
       </div>
