@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>PyQt5使用QSplashScreen创建程序加载界面</title>
+    <link href="/2020/04/05/PyQt5%E4%BD%BF%E7%94%A8QSplashScreen%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E8%BD%BD%E7%95%8C%E9%9D%A2/"/>
+    <url>/2020/04/05/PyQt5%E4%BD%BF%E7%94%A8QSplashScreen%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F%E5%8A%A0%E8%BD%BD%E7%95%8C%E9%9D%A2/</url>
+    
+    <content type="html"><![CDATA[<p>由于Qt程序往往启动较慢，所以我们就需要一个启动界面来做缓冲。（没什么用的样子）</p><h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><p>首先我们创建一个继承至QSplashScreen的类</p><pre><code>import timefrom PyQt5.QtCore import Qtfrom PyQt5.QtGui import QFont, QPixmapfrom PyQt5.QtWidgets import QSplashScreenclass SplashPanel(QSplashScreen):    def __init__(self):        super(SplashPanel, self).__init__()        message_font = QFont(&#39;Microsoft YaHei&#39;)        message_font.setBold(True)        message_font.setPointSize(12)        self.setFont(message_font)        pixmap = QPixmap(&#39;image/load.png&#39;)        self.setPixmap(pixmap)        self.show()        for i in range(1, 5):            self.showMessage(&#39;正在加载文件资源{}&#39;.format(&#39;.&#39; * i), alignment=Qt.AlignBottom, color=Qt.white)            time.sleep(0.15)    def mousePressEvent(self, evt):        pass        # 重写鼠标点击事件，阻止点击后消失    def mouseDoubleClickEvent(self, *args, **kwargs):        pass        # 重写鼠标移动事件，阻止出现卡顿现象    def enterEvent(self, *args, **kwargs):        pass        # 重写鼠标移动事件，阻止出现卡顿现象    def mouseMoveEvent(self, *args, **kwargs):        pass        # 重写鼠标移动事件，阻止出现卡顿现象</code></pre><p>然后是我们的启动函数</p><pre><code>if __name__ == &quot;__main__&quot;:    app = QApplication(sys.argv)    splash = SplashPanel()    app.processEvents()  # 不阻塞程序    myWin = my_win()    splash.finish(myWin)    splash.deleteLater()    myWin.show()    sys.exit(win.exec_())</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>PyQt5</tag>
+      
+      <tag>QSplashScreen</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>使用QtWebEngineWidgets下载网页资源</title>
+    <link href="/2020/04/05/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E4%B8%8B%E8%BD%BD%E7%BD%91%E9%A1%B5%E8%B5%84%E6%BA%90/"/>
+    <url>/2020/04/05/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E4%B8%8B%E8%BD%BD%E7%BD%91%E9%A1%B5%E8%B5%84%E6%BA%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><pre><code>    def __init__(self):        super(my_Browser, self).__init__(None)        self.page().profile().downloadRequested.connect(self.on_downloadRequested)  # 页面下载请求    def on_downloadRequested(self, downloadItem):        if downloadItem.isFinished() == False and downloadItem.state() == 0:            ###生成文件存储地址            the_filename = downloadItem.url().fileName()            the_sourceFile = os.path.join(&#39;D:\\&#39;, the_filename)            ###下载文件            downloadItem.setPath(the_sourceFile)            downloadItem.accept()            downloadItem.finished.connect(self.on_downloadfinished)        #  下载结束触发函数    def on_downloadfinished(self):        js_string = &#39;&#39;&#39;               alert(&quot;下载成功，请到软件同目录下，查找下载文件！&quot;);               &#39;&#39;&#39;        self.page().runJavaScript(js_string)</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>PyQt5</tag>
+      
+      <tag>QtWebEngineWidgets</tag>
+      
+      <tag>Web浏览器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>PyQt5 QThread使用</title>
     <link href="/2020/03/29/PyQt5%20QThread%E4%BD%BF%E7%94%A8/"/>
     <url>/2020/03/29/PyQt5%20QThread%E4%BD%BF%E7%94%A8/</url>
@@ -142,7 +186,7 @@
     <link href="/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
     <url>/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/</url>
     
-    <content type="html"><![CDATA[<p>由于公司的项目常常使用混编模式开发，所以在客户端软件中嵌套web页面就成了必不可少的要求。<br>此次我使用到了PyQt5开发客户端界面，并尝试将web页面嵌套进客户端窗口内。<br>具体使用的Qt模块为QtWebEngineWidgets模块，该模块是在python里是需要单独安装和导入的。</p><h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><pre><code>import sysfrom PyQt5.Qt import QApplicationfrom PyQt5.QtCore import QUrlfrom PyQt5.QtWidgets import QWidgetfrom PyQt5.QtWebEngineWidgets import QWebEngineViewclass my_Browser(QWidget):    def __init__(self):        super(my_Browser, self).__init__(None)        self.setFixedSize(1024, 768)        self.browser = QWebEngineView(self)  # web窗口        self.browserInit()  # 生成浏览器控件        self.openUrl(&#39;https://www.baidu.com/&#39;)        # self.openUrl(&#39;/百度一下，你就知道.mhtml&#39;)    def browserInit(self):        &quot;&quot;&quot;创建一个浏览器&quot;&quot;&quot;        self.browser.setFixedSize(1024, 768)    def openUrl(self, url):        &quot;&quot;&quot;打开网页&quot;&quot;&quot;        self.browser.load(QUrl(url))        # self.browser.load(QUrl.fromLocalFile(url))  # 打开本地路径的网页if __name__ == &quot;__main__&quot;:    win = QApplication(sys.argv)    myWin = my_Browser()    myWin.show()    sys.exit(win.exec_())</code></pre><blockquote><p>注意使用网页链接时需要完整的网页地址https和http是必须的；打开本地web文件只需要带人正确的路径即可，我这里直接放在了同一个目录下，百度的页面为.mhtml，当然.html肯定是可以的。</p></blockquote><p>上面为一个简单的案例，这里我在补充一个简单的知识的，开我们的开发中通常不会只是打开一个web页面这么简单，我们还会需要登录后台并实现web页面的自动登录，这里就需要用到cookie了。</p><h2 id="为url添加cookie信息"><a href="#为url添加cookie信息" class="headerlink" title="为url添加cookie信息"></a>为url添加cookie信息</h2><pre><code>from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfilefrom PyQt5.QtNetwork import QNetworkCookie    ...    def __init__(self):        super(my_Browser, self).__init__(None)        self.setFixedSize(1024, 768)        self.session = &#39;FSDF45643216546465DSD56464&#39;  # 这里随便瞎写一个，当然我们可以将其作为参数带入    ...    def openUrl(self, url):        &quot;&quot;&quot;打开网页&quot;&quot;&quot;        self.my_cookie = QNetworkCookie()        self.my_cookie.setName(&#39;JSESSIONID&#39;.encode())        self.my_cookie.setValue(self.session.encode())        self.my_cookie.setPath(&#39;/&#39;)        QWebEngineProfile.defaultProfile().cookieStore().deleteAllCookies()        QWebEngineProfile.defaultProfile().cookieStore().setCookie(self.my_cookie, QUrl(url))        self.browser.load(QUrl(url))        # self.browser.load(QUrl.fromLocalFile(url))  # 打开本地路径的网页    ...</code></pre><blockquote><p>QNetworkCookie.setPath(‘/‘)这里为cookie添加路径信息，应为web开发人员可能会将接口文件和页面文件分开放置。</p></blockquote><p>关于使用QtWebEngineWidgets嵌套web页面还有很多知识，我会在之后的使用中在一一记录。</p>]]></content>
+    <content type="html"><![CDATA[<p>由于公司的项目常常使用混编模式开发，所以在客户端软件中嵌套web页面就成了必不可少的要求。<br>此次我使用到了PyQt5开发客户端界面，并尝试将web页面嵌套进客户端窗口内。<br>具体使用的Qt模块为QtWebEngineWidgets模块，该模块是在python里是需要单独安装和导入的。</p><h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><pre><code>import sysfrom PyQt5.Qt import QApplicationfrom PyQt5.QtCore import QUrlfrom PyQt5.QtWidgets import QWidgetfrom PyQt5.QtWebEngineWidgets import QWebEngineViewclass my_Browser(QWidget):    def __init__(self):        super(my_Browser, self).__init__(None)        self.setFixedSize(1024, 768)        self.browser = QWebEngineView(self)  # web窗口        self.browserInit()  # 生成浏览器控件        self.openUrl(&#39;https://www.baidu.com/&#39;)        # self.openUrl(&#39;/百度一下，你就知道.mhtml&#39;)    def browserInit(self):        &quot;&quot;&quot;创建一个浏览器&quot;&quot;&quot;        self.browser.setFixedSize(1024, 768)    def openUrl(self, url):        &quot;&quot;&quot;打开网页&quot;&quot;&quot;        self.browser.load(QUrl(url))        # self.browser.load(QUrl.fromLocalFile(url))  # 打开本地路径的网页if __name__ == &quot;__main__&quot;:    win = QApplication(sys.argv)    myWin = my_Browser()    myWin.show()    sys.exit(win.exec_())</code></pre><blockquote><p>注意使用网页链接时需要完整的网页地址https和http是必须的；打开本地web文件只需要带人正确的路径即可，我这里直接放在了同一个目录下，百度的页面为.mhtml，当然.html肯定是可以的。</p></blockquote><p>上面为一个简单的案例，这里我在补充一个简单的知识的，开我们的开发中通常不会只是打开一个web页面这么简单，我们还会需要登录后台并实现web页面的自动登录，这里就需要用到cookie了。</p><h2 id="为url添加cookie信息"><a href="#为url添加cookie信息" class="headerlink" title="为url添加cookie信息"></a>为url添加cookie信息</h2><pre><code>from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfilefrom PyQt5.QtNetwork import QNetworkCookie    ...    def __init__(self):        super(my_Browser, self).__init__(None)        self.setFixedSize(1024, 768)        self.session = &#39;FSDF45643216546465DSD56464&#39;  # 这里随便瞎写一个，当然我们可以将其作为参数带入    ...    def openUrl(self, url):        &quot;&quot;&quot;打开网页&quot;&quot;&quot;        self.my_cookie = QNetworkCookie()        self.my_cookie.setName(&#39;JSESSIONID&#39;.encode())        self.my_cookie.setValue(self.session.encode())        self.my_cookie.setPath(&#39;/&#39;)        QWebEngineProfile.defaultProfile().cookieStore().deleteAllCookies()        QWebEngineProfile.defaultProfile().cookieStore().setCookie(self.my_cookie, QUrl(url))        self.browser.load(QUrl(url))        # self.browser.load(QUrl.fromLocalFile(url))  # 打开本地路径的网页    ...</code></pre><blockquote><p>QNetworkCookie.setPath(‘/‘)这里为cookie添加路径信息，应为web开发人员可能会将接口文件和页面文件分开放置。</p></blockquote><h2 id="关于页面跳转"><a href="#关于页面跳转" class="headerlink" title="关于页面跳转"></a>关于页面跳转</h2><p>在使用QWebEngineView的过程中我们会发现页面无法跳转的问题，这里我们需要重写一个方法：</p><pre><code>    def createWindow(self, QWebEnginePage_WebWindowType):        browser = My_Browser(self)        browser.urlChanged.connect(self.on_url_changed)        return browser</code></pre><p>关于使用QtWebEngineWidgets嵌套web页面还有很多知识，我会在之后的使用中在一一记录。</p>]]></content>
     
     
     

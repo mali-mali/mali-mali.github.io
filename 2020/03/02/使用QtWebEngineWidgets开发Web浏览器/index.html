@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    589 字
+                    642 字
                   </span>&nbsp;
                 
 
@@ -236,7 +236,11 @@ from PyQt5.QtNetwork import QNetworkCookie
     ...</code></pre><blockquote>
 <p>QNetworkCookie.setPath(‘/‘)这里为cookie添加路径信息，应为web开发人员可能会将接口文件和页面文件分开放置。</p>
 </blockquote>
-<p>关于使用QtWebEngineWidgets嵌套web页面还有很多知识，我会在之后的使用中在一一记录。</p>
+<h2 id="关于页面跳转"><a href="#关于页面跳转" class="headerlink" title="关于页面跳转"></a>关于页面跳转</h2><p>在使用QWebEngineView的过程中我们会发现页面无法跳转的问题，这里我们需要重写一个方法：</p>
+<pre><code>    def createWindow(self, QWebEnginePage_WebWindowType):
+        browser = My_Browser(self)
+        browser.urlChanged.connect(self.on_url_changed)
+        return browser</code></pre><p>关于使用QtWebEngineWidgets嵌套web页面还有很多知识，我会在之后的使用中在一一记录。</p>
 
             <hr>
           </div>

@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>使用QtWebEngineWidgets下载网页资源 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, April 5th 2020, 10:00 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    114 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,71 +163,85 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">15 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/03/29/PyQt5%20QThread%E4%BD%BF%E7%94%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PyQt5 QThread使用</span>
-      <span style="float: right;">03-29</span>
-    </a>
-  
-    
-    <a href="/2020/03/22/python%E8%B0%83%E7%94%A8%20C#%20Dll/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">python调用 C# Dll</span>
-      <span style="float: right;">03-22</span>
-    </a>
-  
-    
-    <a href="/2020/03/22/%E8%8E%B7%E5%8F%96QtWebEngine%E7%9A%84Cookie%E4%BF%A1%E6%81%AF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">获取QtWebEngine的Cookie信息</span>
-      <span style="float: right;">03-22</span>
-    </a>
-  
-    
-    <a href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Flask用户管理</span>
-      <span style="float: right;">03-15</span>
-    </a>
-  
-    
-    <a href="/2020/03/10/QWebEngineView%E4%B8%8E%E7%BD%91%E9%A1%B5JS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%20%E5%BF%BD%E7%95%A5%E7%BD%91%E9%A1%B5SSL%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">QWebEngineView与网页JS进行交互 忽略网页SSL证书错误</span>
-      <span style="float: right;">03-10</span>
-    </a>
-  
-    
-    <a href="/2020/03/07/%E4%BD%BF%E7%94%A8Flask%E5%88%9B%E5%BB%BApython%20http%E6%A1%86%E6%9E%B6/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">使用Flask创建python http框架</span>
-      <span style="float: right;">03-07</span>
-    </a>
-  
-    
-    <a href="/2020/03/02/%E4%BD%BF%E7%94%A8QtWebEngineWidgets%E5%BC%80%E5%8F%91Web%E6%B5%8F%E8%A7%88%E5%99%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">使用QtWebEngineWidgets开发Web浏览器</span>
-      <span style="float: right;">03-02</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><pre><code>    def __init__(self):
+        super(my_Browser, self).__init__(None)
+        self.page().profile().downloadRequested.connect(self.on_downloadRequested)  # 页面下载请求
 
-              </div>
-            </div>
+    def on_downloadRequested(self, downloadItem):
+        if downloadItem.isFinished() == False and downloadItem.state() == 0:
+            ###生成文件存储地址
+            the_filename = downloadItem.url().fileName()
+
+            the_sourceFile = os.path.join(&#39;D:\\&#39;, the_filename)
+
+            ###下载文件
+            downloadItem.setPath(the_sourceFile)
+            downloadItem.accept()
+            downloadItem.finished.connect(self.on_downloadfinished)
+
+        #  下载结束触发函数
+
+    def on_downloadfinished(self):
+        js_string = &#39;&#39;&#39;
+               alert(&quot;下载成功，请到软件同目录下，查找下载文件！&quot;);
+               &#39;&#39;&#39;
+        self.page().runJavaScript(js_string)</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/PyQt5">PyQt5</a>
+                
+                  <a class="hover-with-bg" href="/tags/QtWebEngineWidgets">QtWebEngineWidgets</a>
+                
+                  <a class="hover-with-bg" href="/tags/Web%E6%B5%8F%E8%A7%88%E5%99%A8">Web浏览器</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -271,6 +320,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -311,7 +365,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "使用QtWebEngineWidgets下载网页资源&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
