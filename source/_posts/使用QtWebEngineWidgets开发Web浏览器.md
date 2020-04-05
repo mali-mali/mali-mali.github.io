@@ -1,7 +1,7 @@
 ---
 title: 使用QtWebEngineWidgets开发Web浏览器
 date: 2020-03-02 22:00
-updated: 2020-03-02 22:00
+updated: 2020-04-05 10:00
 tags:
 - PyQt5
 - QtWebEngineWidgets
@@ -81,5 +81,14 @@ from PyQt5.QtNetwork import QNetworkCookie
 	...
 ```
 >QNetworkCookie.setPath('/')这里为cookie添加路径信息，应为web开发人员可能会将接口文件和页面文件分开放置。
+
+## 关于页面跳转
+在使用QWebEngineView的过程中我们会发现页面无法跳转的问题，这里我们需要重写一个方法：
+```
+    def createWindow(self, QWebEnginePage_WebWindowType):
+        browser = My_Browser(self)
+        browser.urlChanged.connect(self.on_url_changed)
+        return browser
+```
 
 关于使用QtWebEngineWidgets嵌套web页面还有很多知识，我会在之后的使用中在一一记录。
