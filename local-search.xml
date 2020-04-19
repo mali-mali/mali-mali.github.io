@@ -4,6 +4,46 @@
   
   
   <entry>
+    <title>pip 永久设置源</title>
+    <link href="/2020/04/19/pip%20%E6%B0%B8%E4%B9%85%E8%AE%BE%E7%BD%AE%E6%BA%90/"/>
+    <url>/2020/04/19/pip%20%E6%B0%B8%E4%B9%85%E8%AE%BE%E7%BD%AE%E6%BA%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="清华源"><a href="#清华源" class="headerlink" title="清华源"></a>清华源</h2><pre><code>pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>python读取QQ邮箱邮件</title>
+    <link href="/2020/04/19/python%E8%AF%BB%E5%8F%96QQ%E9%82%AE%E7%AE%B1%E9%82%AE%E4%BB%B6/"/>
+    <url>/2020/04/19/python%E8%AF%BB%E5%8F%96QQ%E9%82%AE%E7%AE%B1%E9%82%AE%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>工作上遇到一个需要进行邮箱操作的需求，这里我以QQ邮箱为例记录下我的代码案例：</p><h2 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h2><h3 id="首先引用我们需要的库"><a href="#首先引用我们需要的库" class="headerlink" title="首先引用我们需要的库"></a>首先引用我们需要的库</h3><pre><code>import poplibfrom email.parser import Parserfrom email.header import decode_headerfrom email.utils import parseaddr</code></pre><h3 id="然后是登录"><a href="#然后是登录" class="headerlink" title="然后是登录"></a>然后是登录</h3><pre><code>def login():    server = poplib.POP3_SSL(host_server)    # 可以打开或关闭调试信息:    # server.set_debuglevel(0)    # 可选:打印POP3服务器的欢迎文字:    # print(server.getwelcome().decode(&#39;utf-8&#39;))    # 身份认证:    server.user(&#39;username&#39;)    server.pass_(&#39;password&#39;)    return server</code></pre><blockquote><p>需要注意，应为我使用的是QQ邮箱所以这里的密码不是邮箱的登录密码，而是授权码。授权码需要在QQ邮箱中设置。[设置方式]（<a href="https://service.mail.qq.com/cgi-bin/help?subtype=1&amp;&amp;no=308&amp;&amp;id=26）" target="_blank" rel="noopener">https://service.mail.qq.com/cgi-bin/help?subtype=1&amp;&amp;no=308&amp;&amp;id=26）</a></p></blockquote><h3 id="获取邮箱中的右键列表"><a href="#获取邮箱中的右键列表" class="headerlink" title="获取邮箱中的右键列表"></a>获取邮箱中的右键列表</h3><pre><code>def getemaillist(server):    # server.stat()  # 返回邮件数量和占用空间:    resp, mails, octets = server.list()  # 返回所有邮件的编号:    # print(mails)  # 可以查看返回的列表类似[b&#39;1 82923&#39;, b&#39;2 2184&#39;, ...]    return mails</code></pre><h3 id="获取邮件内容"><a href="#获取邮件内容" class="headerlink" title="获取邮件内容"></a>获取邮件内容</h3><pre><code>def getEmail(server, index):    # index : 要获取的邮件    try:        resp, lines, octets = server.retr(index)        # lines存储了邮件的原始文本的每一行,        # 可以获得整个邮件的原始文本:        msg_content = b&#39;\r\n&#39;.join(lines).decode(&#39;utf-8&#39;)        # 稍后解析出邮件:        msg = Parser().parsestr(msg_content)        return print_info(msg)    except Exception as e:        return {}def print_info(msg, indent=0):    email_data = {}    if indent == 0:        for header in [&#39;From&#39;, &#39;To&#39;, &#39;Date&#39;, &#39;Subject&#39;]:            value = msg.get(header, &#39;&#39;)            if value:                if header == &#39;Subject&#39;:                    value = decode_str(value)                elif header == &#39;From&#39; or header == &#39;To&#39;:                    hdr, addr = parseaddr(value)                    name = decode_str(hdr)                    value = u&#39;%s &lt;%s&gt;&#39; % (name, addr)                elif header == &#39;Date&#39;:                    week, dt = GreenwichTime(value)                    value = dt.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)                    email_data[&#39;Week&#39;] = week            email_data[header] = value    if msg.is_multipart():        parts = msg.get_payload()        for n, part in enumerate(parts):            print_info(part, indent + 1)    else:        content_type = msg.get_content_type()        if content_type == &#39;text/plain&#39; or content_type == &#39;text/html&#39;:            content = msg.get_payload(decode=True)            charset = guess_charset(msg)            if charset:                content = content.decode(charset)            email_data[content_type] = content        else:            email_data[content_type] = content_type    return email_data</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>邮箱</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>PyQt5 鼠标监听事件</title>
     <link href="/2020/04/12/PyQt5%20%E9%BC%A0%E6%A0%87%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/"/>
     <url>/2020/04/12/PyQt5%20%E9%BC%A0%E6%A0%87%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/</url>
