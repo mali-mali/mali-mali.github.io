@@ -145,6 +145,60 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/04/26/python%20ftp%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/">
+        <p class="h4 index-header">python ftp上传与下载</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">上传下载这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。
+from ftplib import FTP
+from PyQt5.QtCore import QThread, pyqtSignal
+
+
+host = &#39;127.0.0.1&#39;
+port = 21
+username = &#39;xxx&#39;
+password = &#39;123456&#39;
+
+
+class ftpClient(FTP):
+    &quot;&quot;&quot;
+    cmd:命令
+    callback:回调函数
+    fsize:服务器中文件总大小
+    rest:已传送文件大小
+    &quot;&quot;&quot;
+    signal = None
+
+    def retrbinary(self, cmd, callback, fsize=0, rest=0):
+        cmpsize = rest
+        se</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-26&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/ftp">ftp</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/04/19/pip%20%E6%B0%B8%E4%B9%85%E8%AE%BE%E7%BD%AE%E6%BA%90/">
         <p class="h4 index-header">pip 永久设置源</p>
         
@@ -540,50 +594,6 @@ def start_aip(config_name, collection=None):
             <a href="/tags/flask">flask</a>&nbsp;
           
             <a href="/tags/http">http</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/10/QWebEngineView%E4%B8%8E%E7%BD%91%E9%A1%B5JS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%20%E5%BF%BD%E7%95%A5%E7%BD%91%E9%A1%B5SSL%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF/">
-        <p class="h4 index-header">QWebEngineView与网页JS进行交互 忽略网页SSL证书错误</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">之前我们讲到了使用QtWebEngineWidgets模块开发一个内嵌webview的Qt5客户端界面。竟然我们使用了内嵌式的webview那就免不了要与网页JS代码进行一些交互，今天我们就说说如何使我们的python程序与网页JS进行交互。
-QWebEngineView与网页JS进行交互这里我们需要先用到PyQt5.QtWebChannel，并且重写一个我们的webview类，继承至QWebEngineView. 参考
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-from PyQt5.QtWebChannel import QWebChannel
-
-class My_Browser(QWebEngineView):
-    SigSendMessageToJS = pyqtSignal(str)
-
-    def __init__(self, parent):
-        super().__init__(par</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/python">python</a>&nbsp;
-          
-            <a href="/tags/QWebEngineView">QWebEngineView</a>&nbsp;
-          
-            <a href="/tags/SSL">SSL</a>&nbsp;
           
         
       </div>

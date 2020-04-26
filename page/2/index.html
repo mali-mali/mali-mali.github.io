@@ -145,6 +145,50 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/10/QWebEngineView%E4%B8%8E%E7%BD%91%E9%A1%B5JS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%20%E5%BF%BD%E7%95%A5%E7%BD%91%E9%A1%B5SSL%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF/">
+        <p class="h4 index-header">QWebEngineView与网页JS进行交互 忽略网页SSL证书错误</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">之前我们讲到了使用QtWebEngineWidgets模块开发一个内嵌webview的Qt5客户端界面。竟然我们使用了内嵌式的webview那就免不了要与网页JS代码进行一些交互，今天我们就说说如何使我们的python程序与网页JS进行交互。
+QWebEngineView与网页JS进行交互这里我们需要先用到PyQt5.QtWebChannel，并且重写一个我们的webview类，继承至QWebEngineView. 参考
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtWebChannel import QWebChannel
+
+class My_Browser(QWebEngineView):
+    SigSendMessageToJS = pyqtSignal(str)
+
+    def __init__(self, parent):
+        super().__init__(par</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-10&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/QWebEngineView">QWebEngineView</a>&nbsp;
+          
+            <a href="/tags/SSL">SSL</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/07/%E4%BD%BF%E7%94%A8Flask%E5%88%9B%E5%BB%BApython%20http%E6%A1%86%E6%9E%B6/">
         <p class="h4 index-header">使用Flask创建python http框架</p>
         

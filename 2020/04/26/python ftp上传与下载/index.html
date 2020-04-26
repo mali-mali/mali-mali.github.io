@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives ~ Hexo</title>
+  <title>python ftp上传与下载 ~ Hexo</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Sunday, April 26th 2020, 10:00 am
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    427 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,59 +163,136 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">19 posts in total.</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/02/28/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PyQt5自定义控件之环形进度条</span>
-      <span style="float: right;">02-28</span>
-    </a>
-  
-    
-    <a href="/2020/02/24/QtWebEngineWidgets%E5%9C%A8%E6%9F%90%E4%BA%9B%E8%AE%BE%E5%A4%87%E4%B8%8A%E5%B4%A9%E6%BA%83%E7%9A%84%E9%97%AE%E9%A2%98/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">QtWebEngineWidgets在某些设备上崩溃的问题</span>
-      <span style="float: right;">02-24</span>
-    </a>
-  
-    
-    <a href="/2020/02/21/%E5%B8%B8%E7%94%A8%E7%9A%84PyQt5%E6%8E%A7%E4%BB%B6%E6%A0%B7%E5%BC%8F%E8%A1%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">常用的PyQt5控件样式表</span>
-      <span style="float: right;">02-21</span>
-    </a>
-  
-    
-    <a href="/2020/02/13/PyQt5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AA%97%E5%8F%A3%E6%A0%87%E9%A2%98%E6%A0%8F,%E5%AE%9E%E7%8E%B0%E7%AA%97%E5%8F%A3%E6%8B%96%E6%8B%BD/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">PyQt5 自定义窗口标题栏, 实现窗口拖拽</span>
-      <span style="float: right;">02-13</span>
-    </a>
-  
-    
-    <a href="/2020/02/10/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8Agit%E9%83%A8%E7%BD%B2/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">hexo博客搭建及git部署</span>
-      <span style="float: right;">02-10</span>
-    </a>
-  
-</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><pre><code></code></pre><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。</p>
+<pre><code>from ftplib import FTP
+from PyQt5.QtCore import QThread, pyqtSignal
 
 
-              </div>
-            </div>
+host = &#39;127.0.0.1&#39;
+port = 21
+username = &#39;xxx&#39;
+password = &#39;123456&#39;
+
+
+class ftpClient(FTP):
+    &quot;&quot;&quot;
+    cmd:命令
+    callback:回调函数
+    fsize:服务器中文件总大小
+    rest:已传送文件大小
+    &quot;&quot;&quot;
+    signal = None
+
+    def retrbinary(self, cmd, callback, fsize=0, rest=0):
+        cmpsize = rest
+        self.voidcmd(&#39;TYPE I&#39;)
+        # 此命令实现从指定位置开始下载,以达到续传的目的
+        conn = self.transfercmd(cmd, rest)
+        while 1:
+            try:
+                if fsize:
+                    if (fsize - cmpsize) &gt;= 1024:
+                        blocksize = 1024
+                    else:
+                        blocksize = fsize - cmpsize
+                    ret = float(cmpsize) / fsize
+                    num = ret * 100
+                    # 实现同一行打印下载进度
+                    # print(&#39;下载进度: %.2f%%&#39; % num)
+                    data = conn.recv(blocksize)
+                    if self.signal:
+                        if num &lt; 100:
+                            self.signal.emit(int(num), &#39;loading&#39;)
+                        else:
+                            self.signal.emit(int(num), &#39;true&#39;)
+                    if not data:
+                        break
+                    callback(data)
+                    cmpsize += len(data)
+            except Exception as e:
+                if self.signal:
+                    self.signal.emit(0, &#39;false&#39;)
+        conn.close()
+        return self.voidresp()
+
+
+class download(QThread):
+    &quot;&quot;&quot;
+    remote_path:目标地址
+    local_path:本地保存地址
+    &quot;&quot;&quot;
+
+    download_proess_signal = pyqtSignal(int, str)
+
+    def __init__(self, remote_path, local_path):
+        super(download, self).__init__()
+        self.remote_path = remote_path
+        self.local_path = local_path
+        self.ftp = ftpClient()
+        self.ftp.signal = self.download_proess_signal
+        self.ftp.connect(host, port)  # 第一个参数可以是ftp服务器的ip或者域名，第二个参数为ftp服务器的连接端口，默认为21
+        self.ftp.login(username, password)  # 匿名登录直接使用ftp.login()
+
+    def run(self):
+        &quot;&quot;&quot;下载ftp资源&quot;&quot;&quot;
+        fp = open(self.local_path, &quot;wb&quot;)
+        buf_size = self.ftp.size(self.remote_path)
+        self.ftp.retrbinary(&#39;RETR {}&#39;.format(self.remote_path), fp.write, buf_size)
+        fp.close()</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/python">python</a>
+                
+                  <a class="hover-with-bg" href="/tags/ftp">ftp</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -259,6 +371,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -299,7 +416,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "python ftp上传与下载&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
