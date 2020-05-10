@@ -10,7 +10,12 @@ tags:
 ## 上传
 
 ```
-
+def upload(f, remote_path, local_path):
+    with open(local_path, "rb") as fp:
+        print(fp.name)
+        buf_size = 1024
+        f.storbinary("STOR {}".format(remote_path), fp, buf_size)
+        fp.close()
 ```
 
 ## 下载
