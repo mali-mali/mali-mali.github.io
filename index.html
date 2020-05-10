@@ -145,6 +145,53 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/05/10/C#%20%E8%A7%A3%E5%8E%8Bzip/">
+        <p class="h4 index-header">C# 解压zip</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">因为项目需要我这里是打成了dll，直接上代码：
+代码案例using System;
+using System.Threading;
+using System.ComponentModel;
+using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
+
+namespace my_zip
+{
+    public class zip_file
+    {
+        static bool OverWrite = true;
+        /// &lt;summary&gt;
+        /// ZIP:解压一个zip文件 
+        /// add yuangang by 2016-06-13
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;ZipFile&quot;&gt;需要解压的Zip文件（绝对路径）&lt;/param&gt;
+        /// &lt;param name=&quot;TargetDirectory&quot;&gt;解</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-10&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/C#">C#</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/04/26/python%20ftp%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/">
         <p class="h4 index-header">python ftp上传与下载</p>
         
@@ -152,7 +199,12 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">上传下载这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。
+          <div class="index-text mb-1">上传def upload(f, remote_path, local_path):
+    with open(local_path, &quot;rb&quot;) as fp:
+        print(fp.name)
+        buf_size = 1024
+        f.storbinary(&quot;STOR {}&quot;.format(remote_path), fp, buf_size)
+        fp.close()下载这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。
 from ftplib import FTP
 from PyQt5.QtCore import QThread, pyqtSignal
 
@@ -163,18 +215,7 @@ username = &#39;xxx&#39;
 password = &#39;123456&#39;
 
 
-class ftpClient(FTP):
-    &quot;&quot;&quot;
-    cmd:命令
-    callback:回调函数
-    fsize:服务器中文件总大小
-    rest:已传送文件大小
-    &quot;&quot;&quot;
-    signal = None
-
-    def retrbinary(self, cmd, callback, fsize=0, rest=0):
-        cmpsize = rest
-        se</div>
+class ftpClien</div>
         </div>
       </a>
 
@@ -541,59 +582,6 @@ print(instance.AddShort(2, 3))#一个简单的加法</div>
             <a href="/tags/python">python</a>&nbsp;
           
             <a href="/tags/QtWebEngine">QtWebEngine</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
-        <p class="h4 index-header">Flask用户管理</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">在上一篇 中，我们使用了Flask创建了一个python的http后台服务，今天我们来讲讲如何在其中实现用户的登录管理。
-api初始化首先同样的初始化我们的api
-from flask import Flask
-from flask_login import LoginManager
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.session_protection = &#39;strong&#39;
-
-
-def start_aip(config_name, collection=None):
-    &quot;&quot;&quot;
-    初始化API
-    :param config_name:
-    :param collection:
-    :return:
-    &quot;&quot;&quot;
-    app = Flask(_</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
-        
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/python">python</a>&nbsp;
-          
-            <a href="/tags/flask">flask</a>&nbsp;
-          
-            <a href="/tags/http">http</a>&nbsp;
           
         
       </div>

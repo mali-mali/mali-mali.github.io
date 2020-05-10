@@ -145,6 +145,59 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/03/15/Flask%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+        <p class="h4 index-header">Flask用户管理</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">在上一篇 中，我们使用了Flask创建了一个python的http后台服务，今天我们来讲讲如何在其中实现用户的登录管理。
+api初始化首先同样的初始化我们的api
+from flask import Flask
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.session_protection = &#39;strong&#39;
+
+
+def start_aip(config_name, collection=None):
+    &quot;&quot;&quot;
+    初始化API
+    :param config_name:
+    :param collection:
+    :return:
+    &quot;&quot;&quot;
+    app = Flask(_</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/python">python</a>&nbsp;
+          
+            <a href="/tags/flask">flask</a>&nbsp;
+          
+            <a href="/tags/http">http</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/03/10/QWebEngineView%E4%B8%8E%E7%BD%91%E9%A1%B5JS%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92%20%E5%BF%BD%E7%95%A5%E7%BD%91%E9%A1%B5SSL%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF/">
         <p class="h4 index-header">QWebEngineView与网页JS进行交互 忽略网页SSL证书错误</p>
         

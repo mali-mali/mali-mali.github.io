@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    427 字
+                    456 字
                   </span>&nbsp;
                 
 
@@ -172,7 +172,12 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><pre><code></code></pre><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。</p>
+            <h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><pre><code>def upload(f, remote_path, local_path):
+    with open(local_path, &quot;rb&quot;) as fp:
+        print(fp.name)
+        buf_size = 1024
+        f.storbinary(&quot;STOR {}&quot;.format(remote_path), fp, buf_size)
+        fp.close()</code></pre><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>这里我们先封装一个继承至ftp的类，用于显示文件下载的进度。 这里我用到了QThread是应为我的项目使用了qt开发，而特意将下载过程放到子线程进行再使用qt的信号机制更新UI。</p>
 <pre><code>from ftplib import FTP
 from PyQt5.QtCore import QThread, pyqtSignal
 
